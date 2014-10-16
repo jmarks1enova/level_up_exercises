@@ -19,7 +19,7 @@ class Robot
 
   private
 
-  # Recovers dynamic generators; won't scale to >> #'s of robots...
+  # Persistent retry; won't scale to >> #'s of robots...
   def generate_name(name_generator)
     100.times do |i|
       name = generate_valid_name(name_generator)
