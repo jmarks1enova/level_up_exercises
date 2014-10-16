@@ -1,30 +1,45 @@
-class NameCollisionError < RuntimeError; end
+RobotNamingError = Class.new(RuntimeError)
+NameCollisionError = Class.new(RobotNamingError)
+InvalidNameError = Class.new(RobotNamingError)
 
 class Robot
   attr_accessor :name
 
-  @@registry
+  @@registry = []
 
   def initialize(args = {})
-    @@registry ||= []
-    @name_generator = args[:name_generator]
+    @name = generate_name(args[:name_generator] || @@default_name_generator)
+    @@registry << @name
+  end
 
-    if @name_generator
-      @name = @name_generator.call
-    else
-      generate_char = -> { ('A'..'Z').to_a.sample }
-      generate_num = -> { rand(10) }
+  @@default_name_generator = lambda do
+    chars = ('A'..'Z').to_a
+    2.times.map { chars.sample }.concat(3.times.map { (rand 10).to_s }).join('')
+  end
 
-      @name = "#{generate_char.call}#{generate_char.call}#{generate_num.call}#{generate_num.call}#{generate_num.call}"
+  private
+
+  # Recovers dynamic generators; won't scale to >> #'s of robots...
+  def generate_name(name_generator)
+    100.times do |i|
+      name = generate_valid_name(name_generator)
+      return name unless @@registry.include?(name)
+      name_generator = @@default_name_generator if i == 85  # last resort
     end
 
-    raise NameCollisionError, 'There was a problem generating the robot name!' if !(name =~ /[[:alpha:]]{2}[[:digit:]]{3}/) || @@registry.include?(name)
-    @@registry << @name
+    raise NameCollisionError, 'There was a problem generating the robot name!'
+  end
+
+  def generate_valid_name(name_generator)
+    name = name_generator.call
+    raise InvalidNameError, 
+          "Invalid robot name #{name}" unless name =~ /[[:alpha:]]{2}\d{3}/
+    name
   end
 end
 
-robot = Robot.new
-puts "My pet robot's name is #{robot.name}, but we usually call him sparky."
+# robot = Robot.new
+# puts "My pet robot's name is #{robot.name}, but we usually call him sparky."
 
 # Errors!
 # generator = -> { 'AA111' }
