@@ -32,7 +32,7 @@ class Robot
 
   def generate_valid_name(name_generator)
     name = name_generator.call
-    raise InvalidNameError, 
+    raise InvalidNameError,
           "Invalid robot name #{name}" unless name =~ /[[:alpha:]]{2}\d{3}/
     name
   end
