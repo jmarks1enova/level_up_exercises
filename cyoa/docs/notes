@@ -1,0 +1,78 @@
+What to do in a nightlife event catalog:
+
+Requirements:
+(1) Scheduled caching of data sources to drive application
+(2) Multiple data sources
+(3) iCal distribution
+(4) User selects data sources, so can incl/excl events based on what data source
+provided them
+(5) "Customized calendar link" - What is this?
+(6) iCal calendar can be added to Google cal and future events show up therea
+(7) User logs in to maintain preferences (perhaps configure named calendars to
+publish with criteria-based content)
+
+Enhancements:
+
+- Also do vCal?
+
+
+Critical concepts
+- Event
+- data source
+- keyword
+- tags
+- data source abstration layer to normalize events
+
+Approach:
+- Read about i/vcal to understand scheduling fields
+- Inspect various API capabilities for data acquisition
+- Determine event publication API structure
+
+- Give user a feed builder
+  - Each feed has a name
+  - Each feed has a configuration
+  - Each feed has a publication URL
+  - Each feed has a query interface?
+
+- Data sources
+  - A name
+  - A URL to visit
+  - A brief description of what content it provides
+
+- On-the-fly feed resource constructed by URL-based nomenclature
+
+Event index:
+- Full text indexing?
+- Keyword indexing?
+- User tag indexing?
+
+
+rfc2445 notes:
+
+Data types:
+
+Common name (Calendar user)
+Calendar user type (Individual = default, group, resource, room, unknown)
+Delegators
+Description
+Free-busy time and type
+Participation status (ACCEPTED, DECLINED, NEEDS-ACTION, TENTATIVE, DELEGATED,
+  COMPLETED, IN-PROCESS)
+Range of scope: THISANDPRIOR, THISANDFUTUTRE
+relationship type: PARENT, CHILD, SIBLING
+Role: Chair, req-participant, opt-participant, non-participant
+Rsvp expectation (true | false)
+Sent-by
+Timezone identifier
+...
+
+Components:
+
+VEVENT (event)
+VALARM
+VTODO
+VJOURNAL
+VFREEBUSY
+VTIMEZONE
+
+

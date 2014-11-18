@@ -1,0 +1,21 @@
+CalendarEvent - Something that is happening
+
+EventSource - Generic interface for obtaining calendar events from different
+sources; integrates the raw events by adding whatever tags or metadata will
+assimilate them properly in the system. (Creates CalendarEvent ActiveRecord
+models?)
+
+EventSourceDriver - Specific apparatus for extracting events from a source; e.g.
+a particularly formatted RSS feed or website
+
+
+User - A registered human entity with account profile giving preferenes and
+calendar configuration
+
+
+EventTag - An arbitrary symbol attached by users to events
+
+Keyword - A specifically tracked word that is an expressly interesting feature
+of events
+
+Rule - A user-defined programmatic construction describing interesting events

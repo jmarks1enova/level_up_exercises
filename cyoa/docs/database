@@ -1,0 +1,8 @@
+Partition storage:
+- Events by date and/or characteristic
+- Users by date and/or hash
+- Tags by event date
+
+Cluster storage
+- Tags by user
+

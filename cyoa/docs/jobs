@@ -1,0 +1,9 @@
+Event harvester
+- Visits event sources on schedule and pulls events into database
+
+
+Event catalogger
+- Applies users' feed rules to events to link into users' feeds
+- OR: linkage is made on-demand (although this might be prohibitive if there are
+  lots of events in the database
+
