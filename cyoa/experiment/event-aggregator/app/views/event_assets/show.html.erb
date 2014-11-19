@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Calendar event:</strong>
+  <%= @event_asset.calendar_event_id %>
+</p>
+
+<p>
+  <strong>Caption:</strong>
+  <%= @event_asset.caption %>
+</p>
+
+<p>
+  <strong>Mime type:</strong>
+  <%= @event_asset.mime_type %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @event_asset.data %>
+</p>
+
+<%= link_to 'Edit', edit_event_asset_path(@event_asset) %> |
+<%= link_to 'Back', event_assets_path %>

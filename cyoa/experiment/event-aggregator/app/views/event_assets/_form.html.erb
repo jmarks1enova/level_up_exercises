@@ -1,0 +1,33 @@
+<%= form_for(@event_asset) do |f| %>
+  <% if @event_asset.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event_asset.errors.count, "error") %> prohibited this event_asset from being saved:</h2>
+
+      <ul>
+      <% @event_asset.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :calendar_event_id %><br>
+    <%= f.number_field :calendar_event_id %>
+  </div>
+  <div class="field">
+    <%= f.label :caption %><br>
+    <%= f.text_field :caption %>
+  </div>
+  <div class="field">
+    <%= f.label :mime_type %><br>
+    <%= f.text_field :mime_type %>
+  </div>
+  <div class="field">
+    <%= f.label :data %><br>
+    <%= f.text_field :data %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

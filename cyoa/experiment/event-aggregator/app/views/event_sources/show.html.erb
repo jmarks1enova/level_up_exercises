@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @event_source.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @event_source.url %>
+</p>
+
+<p>
+  <strong>Frequency:</strong>
+  <%= @event_source.frequency %>
+</p>
+
+<p>
+  <strong>Last harvest:</strong>
+  <%= @event_source.last_harvest %>
+</p>
+
+<p>
+  <strong>Json parameters:</strong>
+  <%= @event_source.json_parameters %>
+</p>
+
+<%= link_to 'Edit', edit_event_source_path(@event_source) %> |
+<%= link_to 'Back', event_sources_path %>

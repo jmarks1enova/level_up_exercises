@@ -1,5 +1,12 @@
 CalendarEvent - Something that is happening
 
+DTSTART
+DTEND OR DURATION
+CLASS CREATED DESCRIPTION GEO LAST-MOD LOCATION ORGANIZER 
+PRIORITY SEQ STATUS SUMMARY TRANSP RECURID
+
+ATTACH ATTENDEE CATEGORIES COMMENT EXDATE RSTATUS RELATED RESOURCES RDATE
+
 EventSource - Generic interface for obtaining calendar events from different
 sources; integrates the raw events by adding whatever tags or metadata will
 assimilate them properly in the system. (Creates CalendarEvent ActiveRecord
