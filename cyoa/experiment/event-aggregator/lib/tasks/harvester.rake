@@ -7,7 +7,7 @@ namespace :harvester do
     url = "http://www.theatreinchicago.com/news/TICrss.xml"
     
     harvester = Harvester::RSSFeedHarvester.new
-    harvester.create_calendar_items_from(url) # do |harvester, item|
+    harvester.create_calendar_items_from(url) # do |harvester, item, event|
     #
     # end
   end
