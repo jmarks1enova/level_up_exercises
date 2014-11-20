@@ -46,7 +46,7 @@ module Harvester
     def process_rss_feed(rss_stream)
       @feed = RSS::Parser.parse(rss_stream)
       initialize_processing_state
-      feed.items.each { |item| populate_calendar(item, block) }
+      feed.items.each { |item| populate_calendar(item) }
     end
 
     def initialize_processing_state
@@ -76,7 +76,7 @@ module Harvester
 
     def event_construction_params_from_rss(rss_item)
       param_list = EVENT_TO_RSS_ITEM_FIELD.each_pair.map do |event, rss|
-        next unless rss_field_value = rss_item.send(:rss)
+        next unless rss_field_value = rss_item.send(rss)
         [event, rss_field_value] unless rss_field_value.nil?
       end
       param_list << [:source, source]
