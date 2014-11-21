@@ -1,9 +1,10 @@
 module Harvester
   class EventProducer
 
-    DEFAULT_CALLBACK_ON_YIELD = ->(_harvester, event) { event->save }
+    DEFAULT_CALLBACK_ON_YIELD = ->(_harvester, event) { event.save }
 
-    attr_reader :event_data_context, :current_event, :event_source
+    attr_reader :event_data_context, :current_event
+    attr_accessor :event_source
 
     def initialize
       setup_processing_context(nil)
@@ -16,13 +17,17 @@ module Harvester
     end
 
     def event_source
-      data_collector.event_source
+      @event_source ||= data_collector.event_source
     end
 
     def yield_event
       event = CalendarEvent.new(new_event_attributes)
       yield event if block_given?
       @callback_on_create.call(current_event)
+    end
+
+    def self.create_calendar_items_from(data_collector, &block)
+      new.create_calendar_items_from(data_collector, &block)
     end
 
     private

@@ -1,5 +1,5 @@
 module Harvester
-  module HtmlScraper
+  class HtmlScraper
     module HtmlScraperStrategy
       attr_accessor :html_scraper
 
@@ -11,16 +11,16 @@ module Harvester
         html_scraper.event_producer
       end
 
-      def start_element(name, attrs)
-        # Implemented for real in including classes
+      def document
+        html_scraper.document
       end
 
-      def end_element(name)
-        # Implemented for real in including classes
+      def uri
+        html_scraper.uri
       end
 
-      def finish
-        # Implemented for real in including classes
+      def run
+        raise NotImplementedError
       end
     end
   end

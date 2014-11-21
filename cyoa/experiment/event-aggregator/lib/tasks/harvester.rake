@@ -14,10 +14,14 @@ namespace :harvester do
 
   task htmltest: :environment do
 
+    require "harvester"
+    require "harvester/implementations/chicagotheater"
+
     url = "http://www.theatreinchicago.com/nowplayingrs.php"
     
-    harvester = Harvester::HtmlScraper.new
-    harvester.create_calendar_items_from(url) # do |harvester, event|
+    strategy = Harvester::ChicagoTheater::MainPageScraper.new
+    harvester = Harvester::HtmlScraper.new(url, strategy, set_source: true)
+    Harvester::EventProducer.create_calendar_items_from(harvester) # do |harvester, event|
       # Return true to save the event
     # end
   end
