@@ -20,7 +20,7 @@ namespace :harvester do
     url = "http://www.theatreinchicago.com/nowplayingrs.php"
     
     strategy = Harvester::ChicagoTheater::MainPageScraper.new
-    harvester = Harvester::HtmlScraper.new(url, strategy, set_source: true)
+    harvester = Harvester::HtmlScraper.new(url, strategy, set_event_source: true)
     Harvester::EventProducer.create_calendar_items_from(harvester) # do |harvester, event|
       # Return true to save the event
     # end

@@ -1,9 +1,9 @@
 module Harvester
   class EventProducer
 
-    DEFAULT_CALLBACK_ON_YIELD = ->(_harvester, event) { event.save }
+    DEFAULT_CALLBACK_ON_CREATE = ->(_harvester, event) { event.save }
 
-    attr_reader :event_data_context, :current_event
+    attr_reader :event_data_context
     attr_accessor :event_source
 
     def initialize
@@ -11,19 +11,20 @@ module Harvester
     end
 
     def create_calendar_items_from(data_collector, &block)
-      @callback_on_create = block || DEFAULT_CALLBACK_ON_YIELD
+      @callback_on_create = block || DEFAULT_CALLBACK_ON_CREATE
+      @data_collector = data_collector
       setup_processing_context(data_collector)
       data_collector.run(self)
-    end
-
-    def event_source
-      @event_source ||= data_collector.event_source
     end
 
     def yield_event
       event = CalendarEvent.new(new_event_attributes)
       yield event if block_given?
-      @callback_on_create.call(current_event)
+      @callback_on_create.call(self, event)
+    end
+
+    def setup_event_source(options)
+      @event_source ||= EventSource.find_or_create_by(options)
     end
 
     def self.create_calendar_items_from(data_collector, &block)
@@ -32,14 +33,15 @@ module Harvester
 
     private
 
+    attr_accessor :data_collector
+
     def setup_processing_context(data_collector)
-      @data_collector = data_collector
       @event_data_context = { event_attributes: {} }
-      @current_event = {}
     end
 
     def new_event_attributes
-      event_data_context[:event_attributes].merge({ source: event_source })
+      final_attributes = { event_source: event_source }
+      event_data_context[:event_attributes].merge(final_attributes)
     end
   end
 end
