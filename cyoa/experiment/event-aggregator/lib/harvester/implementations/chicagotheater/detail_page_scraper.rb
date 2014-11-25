@@ -24,14 +24,6 @@ module Harvester
       enumerate_event_times
     end
 
-    def create_event_family
-      event_times.each do |event_time|
-        new_event_attributes[:start_time] = event_time
-        new_event_attributes[:end_time] = event_time + 1.hour
-        event_producer.yield_event
-      end
-    end
-
     def html_node_text(css_selector, root = document)
       document.css(css_selector).first.text.strip
     rescue
@@ -83,5 +75,13 @@ module Harvester
                   DateAndTime::Calculations::DAYS_INTO_WEEK[day]
       (first_day..thru_date).step(7).to_a
     end
+
+    def create_event_family
+      event_times.each do |event_time|
+        new_event_attributes[:start_time] = event_time
+        new_event_attributes[:end_time] = event_time + 1.hour
+        event_producer.yield_event
+      end
+   end
   end
 end
