@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20141124223709) do
 
   add_index "calendar_events", ["event_hash"], name: "index_calendar_events_on_event_hash", unique: true
   add_index "calendar_events", ["event_source_id"], name: "index_calendar_events_on_event_source_id"
-  add_index "calendar_events", ["family_hash"], name: "index_calendar_events_on_family_hash", unique: true
+  add_index "calendar_events", ["family_hash"], name: "index_calendar_events_on_family_hash"
 
   create_table "event_assets", force: true do |t|
     t.integer  "calendar_event_id"
@@ -40,10 +40,22 @@ ActiveRecord::Schema.define(version: 20141124223709) do
     t.datetime "updated_at"
   end
 
-# Could not dump table "event_sources" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "event_sources", force: true do |t|
+    t.string   "name"
+    t.string   "uri"
+    t.integer  "frequency"
+    t.integer  "last_harvest"
+    t.text     "json_parameters"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "source_type"
+  end
 
-# Could not dump table "event_tags" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "event_tags", force: true do |t|
+    t.string   "name"
+    t.string   "tag_type",   limit: 64
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -18,7 +18,8 @@ module Harvester
     end
 
     def yield_event
-      event = CalendarEvent.new(new_event_attributes)
+    $stderr.puts "YIELDING #{new_event_attributes.inspect}"
+      event = find_or_create_calendar_event
       yield event if block_given?
       @callback_on_create.call(self, event)
     end
@@ -42,6 +43,17 @@ module Harvester
     def new_event_attributes
       final_attributes = { event_source: event_source }
       event_data_context[:event_attributes].merge(final_attributes)
+    end
+
+    def find_or_create_calendar_event
+      CalendarEvent.find_by(event_hash: new_event_hash) ||
+        CalendarEvent.new(new_event_attributes)
+    end
+
+    def new_event_hash
+      search_attrs =
+        new_event_attributes.merge(source_event_name: event_source.name)
+      CalendarEvent.event_hash(search_attrs)
     end
   end
 end
