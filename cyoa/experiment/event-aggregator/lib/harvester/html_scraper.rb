@@ -33,7 +33,7 @@ module Harvester
 
     def setup_processing_context
       @document = Nokogiri::HTML(open(uri), uri.to_s)
-      setup_event_source
+      setup_event_source if set_event_source
       collection_strategy.initialize_collection(self)
     end
 
