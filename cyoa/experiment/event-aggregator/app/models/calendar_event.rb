@@ -15,7 +15,7 @@ class CalendarEvent < ActiveRecord::Base
                                                     : params[:event_source_name]
     "#{params[:source_name]}#{params[:title]}#{params[:location]}"
   end
-  
+
   def self.family_hash(params)
     Digest::SHA1.hexdigest(family_hash_string(params))
   end

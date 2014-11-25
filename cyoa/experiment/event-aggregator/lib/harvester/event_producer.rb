@@ -18,7 +18,6 @@ module Harvester
     end
 
     def yield_event
-    $stderr.puts "YIELDING #{new_event_attributes.inspect}"
       event = find_or_create_calendar_event
       yield event if block_given?
       @callback_on_create.call(self, event)
