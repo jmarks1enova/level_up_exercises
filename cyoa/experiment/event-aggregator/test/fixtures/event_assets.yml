@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  calendar_event_id: 1
+  caption: MyString
+  mime_type: MyString
+  data: 
+
+two:
+  calendar_event_id: 1
+  caption: MyString
+  mime_type: MyString
+  data: 
